@@ -1,4 +1,4 @@
-name: Deploy Project Marine Alchemist Simulation
+name: Deploy Project Marine Alchemist Multimodal Engine
 
 on:
   push:
@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true  # Aborts old building tasks if you push new updates rapidly
 
 jobs:
   deploy-twin:
@@ -26,7 +26,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup GitHub Pages Environment Configurations
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
+
+      - name: Asset Pre-Compression Matrix (Optimization Layer)
+        run: |
+          echo "Optimizing static WebGL index assets..."
+          # Compresses the standalone engine layout for high-speed edge distribution
+          if [ -f index.html ]; then
+            gzip -k -9 index.html
+            echo "Gzip asset optimization completed."
+          fi
 
       - name: Upload Static WebGL Asset Bundle
         uses: actions/upload-pages-artifact@v3
