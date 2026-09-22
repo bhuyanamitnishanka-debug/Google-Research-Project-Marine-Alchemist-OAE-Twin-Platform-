@@ -1,0 +1,38 @@
+name: Deploy Project Marine Alchemist Simulation
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy-twin:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages Environment Configurations
+        uses: actions/configure-pages@v4
+
+      - name: Upload Static WebGL Asset Bundle
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Stream Production Build to Live GitHub Pages Node
+        id: deployment
+        uses: actions/deploy-pages@v4

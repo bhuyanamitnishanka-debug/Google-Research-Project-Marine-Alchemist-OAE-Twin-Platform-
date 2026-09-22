@@ -1,0 +1,6 @@
+{
+  "name": "Coastal OAE Research Unit - 3D Simulation App",
+  "description": "Interactive 3D animated simulation and research platform for Coastal Ocean Alkalinity Enhancement (OAE), featuring modular dosing pods, geochemical reaction modeling, sensor telemetry, and environmental plume dynamics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
